@@ -9,6 +9,8 @@ given in the comments.
 // contains the 3 key-value pairs:
 // frame: "HTML", style: "CSS", logic: "JavaScript"
 
+var webDev = {frame:"HTML", style:"CSS", logic:"JavaScript"};
+
 // 2) Create an object named pizza with a property named crust.
 // Set the crust value to "thin". Add a method named setCrust
 // to the object that accepts a parameter named crustType.
@@ -16,9 +18,22 @@ given in the comments.
 // the value of the parameter.
 // Hint: keyword to use is "this".
 
+// Create an object:
+var pizza = {
+  crust:"thin",
+setCrust:function(crustType)
+{
+return this.crust=crustType;
+  }
+};
+
 // 3) Create a function named doesItContain that accepts two
 // parameters: "key" and "obj". The function should return
 // boolean data to indicate if the key exists in the object.
+
+function doesItContain(key,obj){
+  return key in obj;
+}
 
 // 4) Create a function named introduceTheActors that accepts
 // the array of objects named actors (see below) as a parameter.
@@ -32,6 +47,7 @@ given in the comments.
 // Store each statement in an array that is returned when
 // the function is complete. The returned array should have
 // all of the created statements inside.
+
 const actors = [
     { name: "Keanu", movie: "The Matrix" },
     { name: "Amy", movie: "Arrival" },
@@ -39,8 +55,18 @@ const actors = [
     { name: "Sigourney", movie: "Alien" },
     { name: "Jeff", movie: "The Big Lebowski" },
   ];
-  ///////// Do not change the above array of objects /////////
+
+///////// Do not change the above array of objects /////////
   
+function introduceTheActors(actorArray){
+  statements=[];
+  actorArray.forEach(function(actor){
+          statement=`Hi, I'm ${actor.name} and I was in ${actor.movie}. `;
+          statements.push(statement);
+  })
+  return statements;
+}
+
   // 5) Create an object named techCompanies that has the following
   // key-value pairs:
   // Microsoft: "Bill Gates", Amazon: "Jeff Bezos", Tesla: "Elon Musk",
@@ -48,6 +74,17 @@ const actors = [
   // Add a method to the techCompanies object named founderLookup
   // that accepts companyName as a parameter and returns
   // the name of the founder.
+
+const techCompanies ={
+  Microsoft: "Bill Gates", 
+  Amazon: "Jeff Bezos", 
+  Tesla: "Elon Musk",
+  Facebook: "Mark Zuckerberg", 
+  Apple: "Steve Jobs",
+  founderLookup : function(companyName){
+    return this[companyName];
+  }
+};
   
   // 6) Utlizing the same techCompanies object from #5,
   // Create a function named storeFounders that accepts
@@ -55,6 +92,17 @@ const actors = [
   // name of each founder in a new array that is returned
   // by the function when the loop is complete.
   
+function storeFounders(companies){
+  var founders=[]
+  Object.values(companies).forEach(function(founder){
+    if(typeof founder == "string"){
+      founders.push(founder);
+    }
+  });
+  return founders;
+}
+
+
   // 7) Create a function named goToSecondClass that accepts
   // a destructured object as a parameter. The parameter
   // extracts the "secondHour" property of the object.
@@ -64,19 +112,35 @@ const actors = [
   // Example: "Time to go to Programming class!"
   /////////
   // Test your function with this object:
-  const myClasses = {
-    firstHour: "Ethics",
-    secondHour: "Programming",
-    thirdHour: "Biology",
-  };
+
+const myClasses = {
+  firstHour: "Ethics",
+  secondHour: "Programming",
+  thirdHour: "Biology",
+};
+
   ////////// Don't change the above object
-  
+
+function goToSecondClass(classes){
+  var {secondHour} = classes;
+  return `Time to go to ${secondHour} class!`
+}
+
+
   // 8a) Create a generic object named pie.
   // Give the pie object a property named "slices"
   // that has a value of 8. Give the pie object
   // a method named "taste". Have the taste method
   // return "Wow!".
   /////
+
+function pie(){
+  this.slices=8;
+  this.taste = function(){
+    return "Wow!";
+  };
+}
+
   // 8b) Create a new object named "blueBerryPie"
   // that uses the pie object as a constructor
   // to inherit its property and method. Use
@@ -86,3 +150,29 @@ const actors = [
   // this new object to return "Delicious!"
   ////////////////
   // Hint: Inheritance is in this week's video.
+
+var blueBerryPie = new pie();
+blueBerryPie.flavor = "blueBerry"
+blueBerryPie.taste = function(){
+  return "Delicious";
+}
+
+// Print code to index.html
+
+var q1 = JSON.stringify(webDev);
+var q2 = JSON.stringify(pizza);
+var q3 = JSON.stringify(doesItContain("frame", webDev));
+var q4 = introduceTheActors(actors);
+var q5 = techCompanies.founderLookup('Amazon');
+var q6 = storeFounders(techCompanies);
+var q7 = goToSecondClass(myClasses);
+var q8 = JSON.stringify(blueBerryPie);
+
+
+const questions = [q1, q2, q4, q5, q6, q7, q8];
+let text = ""
+for (let j = 1; j <= questions.length; j++){
+    console.log (j + ". " + questions[j-1] + "\n");
+    text += j + ". " + questions[j-1] + "<br>";
+}
+document.getElementById("text").innerHTML = text;
