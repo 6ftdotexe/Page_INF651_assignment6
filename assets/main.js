@@ -31,8 +31,8 @@ return this.crust=crustType;
 // parameters: "key" and "obj". The function should return
 // boolean data to indicate if the key exists in the object.
 
-function doesItContain(key,obj){
-  return key in obj;
+function doesItContain(key, obj){
+  return ((key in obj) ? true : false);
 }
 
 // 4) Create a function named introduceTheActors that accepts
@@ -161,7 +161,7 @@ blueBerryPie.taste = function(){
 
 var q1 = JSON.stringify(webDev);
 var q2 = JSON.stringify(pizza);
-var q3 = JSON.stringify(doesItContain("frame", webDev));
+var q3 = doesItContain("crust", pizza);
 var q4 = introduceTheActors(actors);
 var q5 = techCompanies.founderLookup('Amazon');
 var q6 = storeFounders(techCompanies);
@@ -169,7 +169,7 @@ var q7 = goToSecondClass(myClasses);
 var q8 = JSON.stringify(blueBerryPie);
 
 
-const questions = [q1, q2, q4, q5, q6, q7, q8];
+const questions = [q1, q2, q3, q4, q5, q6, q7, q8];
 let text = ""
 for (let j = 1; j <= questions.length; j++){
     console.log (j + ". " + questions[j-1] + "\n");
